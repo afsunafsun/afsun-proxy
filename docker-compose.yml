@@ -1,0 +1,29 @@
+# afsun-proxy v2 — 3X-UI + Caddy (без Marzban/MariaDB)
+# См. docs/DEPLOY.md
+
+services:
+  x-ui:
+    image: ghcr.io/mhsanaei/3x-ui:${XUI_VERSION:-3.4.0}
+    container_name: afsun-x-ui
+    restart: unless-stopped
+    env_file: .env
+    network_mode: host
+    volumes:
+      - ${DATA_DIR}/x-ui/db:/etc/x-ui
+      - ${DATA_DIR}/x-ui/cert:/root/cert
+      # runetfreedom geofiles → ext:geosite_ru-rules.dat / ext:geoip_ru-blocked.dat в правилах Xray
+      - ${DATA_DIR}/x-ui/geofiles/geosite_ru-rules.dat:/app/bin/geosite_ru-rules.dat:ro
+      - ${DATA_DIR}/x-ui/geofiles/geoip_ru-blocked.dat:/app/bin/geoip_ru-blocked.dat:ro
+
+  caddy:
+    image: caddy:${CADDY_VERSION:-2.9}
+    container_name: afsun-caddy
+    restart: unless-stopped
+    env_file: .env
+    network_mode: host
+    volumes:
+      - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ${DATA_DIR}/caddy/data:/data
+      - ${DATA_DIR}/caddy/config:/config
+    depends_on:
+      - x-ui

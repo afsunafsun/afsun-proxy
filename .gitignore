@@ -1,0 +1,10 @@
+.env
+SERVER-NOTES.md
+*.pem
+*.key
+*.crt
+*.log
+data/
+/var/
+/.cursor/
+config/caddy/Caddyfile

@@ -1,0 +1,23 @@
+# Шаблон Caddy — копируется в Caddyfile при install.sh (см. docs/DEPLOY.md)
+# Переменные из .env: PROXY_DOMAIN, CADDY_EMAIL, XUI_PORT
+
+{
+	email {$CADDY_EMAIL:admin@example.com}
+}
+
+http://{$PROXY_DOMAIN:proxy.example.com} {
+	redir https://{host}:8443{uri} permanent
+}
+
+https://{$PROXY_DOMAIN:proxy.example.com}:8443 {
+	# Подписка 3X-UI (subListen 127.0.0.1:2096, TLS терминирует Caddy)
+	handle /sub/* {
+		reverse_proxy 127.0.0.1:2096
+	}
+	handle /json/* {
+		reverse_proxy 127.0.0.1:2096
+	}
+	handle {
+		reverse_proxy 127.0.0.1:{$XUI_PORT:2053}
+	}
+}
