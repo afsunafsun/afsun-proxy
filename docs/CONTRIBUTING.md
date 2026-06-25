@@ -34,9 +34,8 @@ feature/*  →  develop  →  main  +  tag vX.Y.Z
 
 ## Коммиты
 
-- **Не коммитьте с prod-сервера** под `root@hostname` — только с вашего ПК
-- Email: GitHub noreply `ID+username@users.noreply.github.com` или ваш публичный email
-- **Cursor:** Settings → отключить добавление `Co-authored-by: Cursor` в коммиты (иначе `cursoragent` попадёт в Contributors)
+- Коммиты — с вашего ПК, не с prod-сервера (`root@hostname`)
+- Email: GitHub noreply или ваш публичный email
 
 ```bash
 cp .env.example .env
