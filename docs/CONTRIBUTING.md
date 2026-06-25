@@ -39,6 +39,7 @@ feature/*  →  develop  →  main  +  tag vX.Y.Z
 - **Cursor:** Settings → отключить добавление `Co-authored-by: Cursor` в коммиты (иначе `cursoragent` попадёт в Contributors)
 
 ```bash
+cp .env.example .env
 cp config/caddy/Caddyfile.example config/caddy/Caddyfile
 docker compose config
 shellcheck scripts/*.sh scripts/lib/*.sh
