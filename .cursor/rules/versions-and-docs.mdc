@@ -31,11 +31,21 @@ alwaysApply: true
 - `CHANGELOG.md` `[Unreleased]`
 - При необходимости — `docs/OPERATIONS.md` или `DEPLOY.md`
 
-## Релиз afsun-proxy (SemVer)
+## Релиз afsun-proxy (SemVer) — не путать с XUI_VERSION
 
-1. `[Unreleased]` → `## [X.Y.Z] — дата` в CHANGELOG
-2. Tag `vX.Y.Z` на `main` → GitHub Release (body из CHANGELOG)
-3. См. `docs/CONTRIBUTING.md`
+**Версия релиза репозитория** (`v2.2.0`) задаётся **вручную** — следующий SemVer после последнего тега. GitHub **не** выбирает номер сам.
+
+Порядок:
+
+1. **`CHANGELOG.md`:** перенести `[Unreleased]` → `## [X.Y.Z] — дата`, оставить пустой `[Unreleased]`
+2. PR **`develop` → `main`**, title: `Release vX.Y.Z`
+3. После merge на **`main`:** `git tag vX.Y.Z` + `git push origin main --tags`
+4. **Автоматически:** `.github/workflows/release.yml` по push тега `v*` создаёт **GitHub Release**
+5. **Текст Release** = блок `## [X.Y.Z]` из CHANGELOG (без заголовка). Тег **`v2.2.0`** ↔ секция **`## [2.2.0]`** — обязаны совпадать
+6. Release в UI GitHub вручную **не создавать**
+7. `develop` ← merge `main`
+
+Проверка перед тегом: `grep '^\## \[2\.2\.0\]' CHANGELOG.md` и тег `v2.2.0`.
 
 ## Git / коммиты
 

@@ -18,13 +18,17 @@ feature/*  →  develop  →  main  +  tag vX.Y.Z
 1. Ветка от `develop`: `git checkout develop && git pull && git checkout -b feature/имя`
 2. Коммит, push, PR в **`develop`**
 3. CI (`validate.yml`) должен пройти
-4. Когда готово к релизу: merge `develop` → `main`
-5. На `main`:
-   - обновить `CHANGELOG.md` (секция `[X.Y.Z]` + пустой `[Unreleased]`)
-   - `git tag vX.Y.Z`
-   - `git push origin main --tags`
-6. GitHub → **Releases** → создать release по тегу
-7. `develop` merge/rebase от `main`, чтобы ветки не разъехались
+4. Когда готово к релизу:
+   - в **`CHANGELOG.md`**: `[Unreleased]` → `## [X.Y.Z] — дата`, ниже — пустой `[Unreleased]`
+   - PR **`develop` → `main`**, title: `Release vX.Y.Z`
+5. После merge на **`main`** (версия = **ваш** SemVer, не «авто»):
+   ```bash
+   git checkout main && git pull
+   git tag vX.Y.Z          # например v2.2.0 — без v в CHANGELOG, с v в теге
+   git push origin main --tags
+   ```
+6. **GitHub Release создаётся автоматически** — workflow [`.github/workflows/release.yml`](../.github/workflows/release.yml) срабатывает на push тега `v*`. Текст Release = секция `## [X.Y.Z]` из CHANGELOG (тег `v2.2.0` ↔ заголовок `## [2.2.0]`). Вручную в UI **Release → Draft** не нужен.
+7. `develop` merge/rebase от `main`, push
 
 ## Версии
 
@@ -64,5 +68,5 @@ shellcheck scripts/*.sh scripts/lib/*.sh
 
 ```bash
 git clone https://github.com/afsunafsun/afsun-proxy.git /opt/afsun-proxy
-git checkout v2.1.0   # опционально, зафиксировать версию
+git checkout v2.2.0   # опционально, зафиксировать версию
 ```
