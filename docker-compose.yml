@@ -3,7 +3,7 @@
 
 services:
   x-ui:
-    image: ghcr.io/mhsanaei/3x-ui:${XUI_VERSION:-3.4.0}
+    image: ghcr.io/mhsanaei/3x-ui:${XUI_VERSION:-3.4.1}
     container_name: afsun-x-ui
     restart: unless-stopped
     env_file: .env

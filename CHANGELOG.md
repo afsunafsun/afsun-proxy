@@ -14,6 +14,7 @@
 
 - `finish-panel-setup.sh` / `bootstrap.sh` — metrics и Observatory настраиваются автоматически при первой установке
 - `docs/OPERATIONS.md`, `docs/DEPLOY.md` — обновление 3X-UI/Caddy в Docker (не кнопка в панели)
+- **3X-UI 3.4.1** — версия по умолчанию в `.env.example`, `docker-compose.yml`
 
 ## [2.1.0] — 2026-06-25
 

@@ -32,6 +32,20 @@ feature/*  →  develop  →  main  +  tag vX.Y.Z
 - Тег = версия в CHANGELOG, например `v2.1.0`
 - Версии компонентов — в `.env.example` (`XUI_VERSION`, `CADDY_VERSION`)
 
+### Обновление 3X-UI / Caddy
+
+При смене `XUI_VERSION` или `CADDY_VERSION`:
+
+1. `.env.example` — актуальный тег образа
+2. `docker-compose.yml` — fallback в `${XUI_VERSION:-…}` / `${CADDY_VERSION:-…}`
+3. `scripts/update-xui.sh` — default в `${XUI_VERSION:-…}`
+4. `CHANGELOG.md` — секция `[Unreleased]` → `Changed`
+5. `docs/OPERATIONS.md`, `docs/DEPLOY.md` — примеры и формулировки «текущая версия»
+6. `grep -r '3\.4\.' docs/ scripts/` — убрать устаревшие pin'ы (исторические `docs/releases/*` и закрытые секции CHANGELOG не трогать)
+7. На prod: `.env` + `sudo bash scripts/update-xui.sh` (или `docker compose pull` + `up -d`)
+
+Правило для Cursor: `.cursor/rules/versions-and-docs.mdc`
+
 ## Коммиты
 
 - Коммиты — с вашего ПК, не с prod-сервера (`root@hostname`)

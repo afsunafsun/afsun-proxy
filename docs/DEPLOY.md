@@ -88,7 +88,7 @@ sudo bash scripts/finish-panel-setup.sh
 ```
 
 - Скачивает runetfreedom `geosite_ru-rules.dat` / `geoip_ru-blocked.dat` в `${DATA_DIR}/x-ui/geofiles/` и монтирует в Xray.
-- В 3X-UI **3.4.0** geofiles можно добавить в панели: **Статус системы → Xray → Пользовательские GeoSite / GeoIP**, либо использовать уже смонтированные `ext:geosite_ru-rules.dat:ru-blocked`.
+- В 3X-UI **3.4.x** (по умолчанию **3.4.1** в `.env.example`) geofiles можно добавить в панели: **Статус системы → Xray → Пользовательские GeoSite / GeoIP**, либо использовать уже смонтированные `ext:geosite_ru-rules.dat:ru-blocked`.
 - Включает HTTPS-подписку через Caddy (`/sub/`, `/json/` на `:8443`).
 
 После скрипта на телефоне: **удалить старый профиль** и импортировать ссылку подписки из вывода скрипта.

@@ -18,7 +18,7 @@ fi
 # shellcheck source=/dev/null
 source .env
 
-XUI_VERSION="${XUI_VERSION:-3.4.0}"
+XUI_VERSION="${XUI_VERSION:-3.4.1}"
 
 echo "=== Обновление 3X-UI → ${XUI_VERSION} (образ ghcr.io/mhsanaei/3x-ui) ==="
 echo "Данные панели в ${DATA_DIR:-/var/lib/afsun-proxy}/x-ui/db — не затрагиваются."
