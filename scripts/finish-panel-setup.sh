@@ -7,6 +7,7 @@ cd "$ROOT"
 
 bash scripts/setup-geofiles.sh
 bash scripts/configure-xui-subscription.sh
+bash scripts/ensure-xray-metrics.sh
 
 docker compose up -d
 sleep 3

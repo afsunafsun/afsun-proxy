@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Синхронизирует realitySettings.target с dest (3X-UI 3.4.0 показывает «Цель» из target).
+# Синхронизирует realitySettings.target с dest (3X-UI ≥3.4.0 показывает «Цель» из target).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"

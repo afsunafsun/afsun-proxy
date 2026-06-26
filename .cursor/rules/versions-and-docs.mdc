@@ -1,0 +1,54 @@
+---
+description: Версии компонентов, CHANGELOG и синхронизация документации afsun-proxy
+alwaysApply: true
+---
+
+# Версии и документация (afsun-proxy)
+
+## Компоненты Docker
+
+- **3X-UI:** `XUI_VERSION` в `.env.example` → образ `ghcr.io/mhsanaei/3x-ui:${XUI_VERSION}`
+- **Caddy:** `CADDY_VERSION` в `.env.example`
+- Fallback-теги: `docker-compose.yml`, `scripts/update-xui.sh`
+- Кнопка «Обновить панель» в UI **не работает** в Docker — только `scripts/update-xui.sh` или `docker compose pull` + `up -d`
+
+## При смене XUI_VERSION / CADDY_VERSION — обновить всё
+
+1. `.env.example`
+2. `docker-compose.yml` (defaults после `:-`)
+3. `scripts/update-xui.sh` (default)
+4. `CHANGELOG.md` — `[Unreleased]` → `Changed` (версия панели/Caddy)
+5. `docs/OPERATIONS.md`, `docs/DEPLOY.md` — примеры с актуальным тегом
+6. `grep` по `docs/`, `scripts/` — устаревшие pin'ы версии панели
+7. **Не менять:** `docs/releases/v*.md`, закрытые секции CHANGELOG (история релиза)
+
+В документации: **3.4.x** или **≥3.4.0** для поведения UI; **3.4.1** — только как текущий default в `.env.example`.
+
+## Новые скрипты / bootstrap
+
+- Idempotent, `shellcheck`-clean
+- Встроить в `bootstrap.sh` или `finish-panel-setup.sh`, если нужно «запустил и забыл»
+- `CHANGELOG.md` `[Unreleased]`
+- При необходимости — `docs/OPERATIONS.md` или `DEPLOY.md`
+
+## Релиз afsun-proxy (SemVer) — не путать с XUI_VERSION
+
+**Версия релиза репозитория** (`v2.2.0`) задаётся **вручную** — следующий SemVer после последнего тега. GitHub **не** выбирает номер сам.
+
+Порядок:
+
+1. **`CHANGELOG.md`:** перенести `[Unreleased]` → `## [X.Y.Z] — дата`, оставить пустой `[Unreleased]`
+2. PR **`develop` → `main`**, title: `Release vX.Y.Z`
+3. После merge на **`main`:** `git tag vX.Y.Z` + `git push origin main --tags`
+4. **Автоматически:** `.github/workflows/release.yml` по push тега `v*` создаёт **GitHub Release**
+5. **Текст Release** = блок `## [X.Y.Z]` из CHANGELOG (без заголовка). Тег **`v2.2.0`** ↔ секция **`## [2.2.0]`** — обязаны совпадать
+6. Release в UI GitHub вручную **не создавать**
+7. `develop` ← merge `main`
+
+Проверка перед тегом: `grep '^\## \[2\.2\.0\]' CHANGELOG.md` и тег `v2.2.0`.
+
+## Git / коммиты
+
+- Не коммитить `.env`, секреты, prod-домены
+- Коммиты только по запросу пользователя
+- Без Co-authored-by Cursor в истории

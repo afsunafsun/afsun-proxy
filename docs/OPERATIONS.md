@@ -76,6 +76,37 @@ Xray inbound «Hysteria2» в панели **не использовать** —
 bash scripts/backup-xui.sh
 ```
 
+## Обновление 3X-UI и Caddy
+
+Панель работает в **Docker**. Версия задаётся тегом образа в `.env` (`XUI_VERSION`, `CADDY_VERSION`), а не кнопкой **«Обновить панель»** на дашборде 3X-UI.
+
+Кнопка в UI рассчитана на установку через **systemd** (`update.sh` + `x-ui.service`). В контейнере сервиса нет — обновление завершается с ошибкой `x-ui service unit not installed`, версия не меняется. Это ожидаемое поведение, не баг afsun-proxy.
+
+**3X-UI:**
+
+1. Посмотреть актуальный релиз: [3X-UI releases](https://github.com/MHSanaei/3x-ui/releases)
+2. В `.env`: `XUI_VERSION=3.4.1` (без префикса `v`)
+3. Обновить:
+
+```bash
+sudo bash scripts/update-xui.sh
+```
+
+Или вручную:
+
+```bash
+cd /opt/afsun-proxy
+nano .env   # XUI_VERSION=…
+docker compose pull x-ui
+docker compose up -d x-ui
+```
+
+Клиенты, inbound'ы и настройки хранятся в `${DATA_DIR}/x-ui/db` (volume) — при смене образа **не теряются**.
+
+**Caddy** — аналогично: `CADDY_VERSION` в `.env`, затем `docker compose pull caddy && docker compose up -d caddy`.
+
+После обновления репозитория afsun-proxy (`git pull`) перечитайте `.env.example` — там могут быть новые переменные.
+
 ## Проблемы связности
 
 → [TROUBLESHOOTING.md](TROUBLESHOOTING.md)

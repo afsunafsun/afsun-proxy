@@ -6,5 +6,8 @@ SERVER-NOTES.md
 *.log
 data/
 /var/
-/.cursor/
+# Cursor IDE — в git только `.cursor/rules/` (остальное см. `.cursor/.gitignore`)
+/.cursor/*
+!/.cursor/rules/
+!/.cursor/rules/**
 config/caddy/Caddyfile
