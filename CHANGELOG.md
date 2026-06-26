@@ -4,6 +4,17 @@
 
 ## [Unreleased]
 
+### Added
+
+- `scripts/ensure-xray-metrics.sh` — блоки `metrics` и `observatory` в шаблоне Xray (графики и health-check в панели), idempotent
+- `scripts/update-xui.sh` — обновление 3X-UI через Docker-образ
+- `.env.example` — опционально `XRAY_METRICS_*`, `XRAY_OBSERVATORY_*`
+
+### Changed
+
+- `finish-panel-setup.sh` / `bootstrap.sh` — metrics и Observatory настраиваются автоматически при первой установке
+- `docs/OPERATIONS.md`, `docs/DEPLOY.md` — обновление 3X-UI/Caddy в Docker (не кнопка в панели)
+
 ## [2.1.0] — 2026-06-25
 
 ### Added

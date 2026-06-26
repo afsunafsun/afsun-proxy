@@ -96,4 +96,5 @@ sudo bash scripts/finish-panel-setup.sh
 ## Дальше
 
 - Повседневные задачи → [OPERATIONS.md](OPERATIONS.md)
+- **Обновление 3X-UI / Caddy** → [OPERATIONS.md#обновление-3x-ui-и-caddy](OPERATIONS.md#обновление-3x-ui-и-caddy) (не кнопка в панели)
 - Проблемы связности → [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
